@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Integration requests submitted from the public landing page.
+/// `status` and `createdAt` are server-controlled and are not accepted from the client.
+model IntegrationRequest {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  service     String
+  description String
+  status      String   @default("new")
+  createdAt   DateTime @default(now())
+}
